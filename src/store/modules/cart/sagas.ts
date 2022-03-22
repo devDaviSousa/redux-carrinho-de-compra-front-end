@@ -1,8 +1,8 @@
 import { all, select, takeLatest } from "redux-saga/effects";
 import { IState } from "../..";
-import { addProductToCar } from "./actions";
+import { addProductToCarRequest } from "./actions";
 
-type CheckProductStockRequest = ReturnType<typeof addProductToCar>;
+type CheckProductStockRequest = ReturnType<typeof addProductToCarRequest>;
 function* checkProductStock({ payload }: CheckProductStockRequest) {
   const { product } = payload;
   const currentQuantity: number = yield select((state: IState) => {
@@ -15,4 +15,6 @@ function* checkProductStock({ payload }: CheckProductStockRequest) {
   console.log("Adicionou o carrinho");
 }
 
-export default all([takeLatest("ADD_PRODUCT_TO_CART", checkProductStock)]);
+export default all([
+  takeLatest("ADD_PRODUCT_TO_CART_REQUEST", checkProductStock),
+]);
